@@ -36,7 +36,7 @@ img{max-width:100%;display:block;}
 /* ── HEADER ── */
 header{position:fixed;top:0;right:0;left:0;z-index:100;background:rgba(8,16,25,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(205,165,74,0.15);}
 .header-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;}
-.logo-wrap img{height:50px;width:auto;}
+.logo-wrap img{height:44px;width:auto;}
 nav{display:flex;align-items:center;gap:26px;}
 nav a{font-size:15px;font-weight:500;color:var(--text-muted);transition:color .2s;position:relative;}
 nav a::after{content:'';position:absolute;bottom:-4px;right:0;width:0;height:2px;background:var(--gold);transition:width .2s;}
@@ -156,6 +156,10 @@ body{padding-top:104px;}
 .book-note{text-align:center;font-size:12px;color:var(--text-dim);margin-top:14px;}
 .book-error{font-size:12px;color:#ff6b6b;margin-top:4px;display:none;}
 .book-field.invalid input,.book-field.invalid select{border-color:#ff6b6b;}
+.book-field.important-field{background:rgba(205,165,74,.05);border:1px solid rgba(205,165,74,.25);border-radius:14px;padding:14px;}
+.book-field.important-field label{color:var(--gold);font-weight:700;}
+.book-field.important-field input{border-color:rgba(205,165,74,.35);background:var(--dark2);}
+.book-field.important-field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(205,165,74,.12);}
 .book-field.invalid .book-error{display:block;}
 
 /* ── FOOTER ── */
@@ -498,6 +502,13 @@ footer{background:#050a10;border-top:1px solid rgba(255,255,255,.05);padding:40p
           </div>
         </div>
         <div class="book-row">
+          <div class="book-field full important-field" id="fieldEmail">
+            <label for="bookEmail">البريد الإلكتروني <span style="color:var(--gold);">*</span></label>
+            <input type="email" id="bookEmail" name="email" placeholder="example@email.com" autocomplete="email" dir="ltr" style="text-align:right;">
+            <span class="book-error">من فضلك أدخل بريد إلكتروني صحيح</span>
+          </div>
+        </div>
+        <div class="book-row">
           <div class="book-field full" id="fieldService">
             <label for="bookService">نوع الخدمة</label>
             <select id="bookService" name="service">
@@ -630,16 +641,22 @@ whyCards.forEach(c=>whyObserver.observe(c));
   if(!form) return;
   const nameInput = document.getElementById('bookName');
   const phoneInput = document.getElementById('bookPhone');
+  const emailInput = document.getElementById('bookEmail');
   const serviceSelect = document.getElementById('bookService');
   const notesInput = document.getElementById('bookNotes');
 
   const fieldName = document.getElementById('fieldName');
   const fieldPhone = document.getElementById('fieldPhone');
+  const fieldEmail = document.getElementById('fieldEmail');
   const fieldService = document.getElementById('fieldService');
 
   function isValidSaudiPhone(value){
     const cleaned = value.replace(/[\s\-]/g, '');
     return /^(05\d{8}|9665\d{8}|\+9665\d{8})$/.test(cleaned);
+  }
+
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   }
 
   form.addEventListener('submit', function(e){
@@ -648,16 +665,18 @@ whyCards.forEach(c=>whyObserver.observe(c));
 
     if(nameInput.value.trim().length < 2){ fieldName.classList.add('invalid'); valid = false; } else { fieldName.classList.remove('invalid'); }
     if(!isValidSaudiPhone(phoneInput.value.trim())){ fieldPhone.classList.add('invalid'); valid = false; } else { fieldPhone.classList.remove('invalid'); }
+    if(!isValidEmail(emailInput.value.trim())){ fieldEmail.classList.add('invalid'); valid = false; } else { fieldEmail.classList.remove('invalid'); }
     if(!serviceSelect.value){ fieldService.classList.add('invalid'); valid = false; } else { fieldService.classList.remove('invalid'); }
 
     if(!valid) return;
 
     const name = nameInput.value.trim();
     const phone = phoneInput.value.trim();
+    const email = emailInput.value.trim();
     const service = serviceSelect.value;
     const notes = notesInput.value.trim();
 
-    let message = `مرحباً، أنا ${name} \nأرغب في طلب خدمة: *${service}*\nرقم الجوال: ${phone}`;
+    let message = `مرحباً، أنا ${name} \nأرغب في طلب خدمة: *${service}*\nرقم الجوال: ${phone}\nالبريد الإلكتروني: ${email}`;
     if(notes){ message += `\nملاحظات: ${notes}`; }
     const encodedMessage = encodeURIComponent(message);
 
@@ -668,7 +687,7 @@ whyCards.forEach(c=>whyObserver.observe(c));
     openWaModal();
   });
 
-  [nameInput, phoneInput, serviceSelect].forEach(el=>{
+  [nameInput, phoneInput, emailInput, serviceSelect].forEach(el=>{
     el.addEventListener('input', ()=>{ el.closest('.book-field').classList.remove('invalid'); });
   });
 })();
