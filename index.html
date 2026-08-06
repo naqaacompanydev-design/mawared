@@ -35,17 +35,7 @@ img{max-width:100%;display:block;}
 
 /* ── HEADER ── */
 header{position:fixed;top:0;right:0;left:0;z-index:100;background:rgba(8,16,25,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(205,165,74,0.15);}
-.header-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
-.header-dev-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px 6px 12px;border-radius:50px;background:linear-gradient(90deg,rgba(205,165,74,.06),rgba(205,165,74,.15),rgba(205,165,74,.06));background-size:200% auto;border:1px solid rgba(205,165,74,.3);animation:headerBadgeShimmer 4.5s linear infinite;transition:transform .2s,border-color .2s;flex-shrink:0;}
-.header-dev-badge:hover{transform:translateY(-1px);border-color:rgba(205,165,74,.6);}
-.header-dev-badge svg{flex-shrink:0;animation:headerBadgeSpin 5s linear infinite;}
-.header-dev-badge-text{font-size:11.5px;font-weight:800;background:linear-gradient(90deg,#cda54a,#f3e3b0,#cda54a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:headerBadgeShimmer 4.5s linear infinite;white-space:nowrap;}
-@keyframes headerBadgeShimmer{0%{background-position:0% center;}100%{background-position:200% center;}}
-@keyframes headerBadgeSpin{0%,85%,100%{transform:rotate(0deg);}90%{transform:rotate(180deg);}95%{transform:rotate(360deg);}}
-@media(max-width:480px){
-  .header-dev-badge{padding:6px;}
-  .header-dev-badge-text{display:none;}
-}
+.header-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;height:70px;display:flex;align-items:center;justify-content:space-between;}
 .logo-wrap img{height:44px;width:auto;}
 nav{display:flex;align-items:center;gap:26px;}
 nav a{font-size:15px;font-weight:500;color:var(--text-muted);transition:color .2s;position:relative;}
@@ -247,10 +237,30 @@ footer{background:#050a10;border-top:1px solid rgba(255,255,255,.05);padding:40p
 
 /* DEVELOPER CREDIT BADGE */
 .credit-line{margin-top:18px;display:flex;justify-content:center;}
-.credit-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:50px;background:linear-gradient(90deg,rgba(205,165,74,.05),rgba(205,165,74,.12),rgba(205,165,74,.05));background-size:200% auto;border:1px solid rgba(205,165,74,.18);font-size:12px;color:var(--text-dim);transition:all .35s ease;animation:creditShimmerBg 5s linear infinite;}
+.credit-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:50px;background:linear-gradient(90deg,rgba(205,165,74,.05),rgba(205,165,74,.12),rgba(205,165,74,.05));background-size:200% auto;border:1px solid rgba(205,165,74,.18);font-size:12px;color:var(--text-dim);transition:all .35s ease;animation:creditShimmerBg 5s linear infinite;font-family:'Cairo',sans-serif;cursor:pointer;}
 .credit-badge:hover{border-color:rgba(205,165,74,.5);transform:translateY(-2px);box-shadow:0 8px 24px rgba(205,165,74,.18);}
 .credit-badge svg{flex-shrink:0;animation:creditSpin 6s linear infinite;}
-.credit-badge a{font-weight:800;text-decoration:none;background:linear-gradient(90deg,#cda54a,#f3e3b0,#cda54a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:creditShimmerText 3s linear infinite;}
+.credit-badge-name{font-weight:800;background:linear-gradient(90deg,#cda54a,#f3e3b0,#cda54a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:creditShimmerText 3s linear infinite;}
+
+.dev-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;align-items:center;justify-content:center;padding:20px;}
+.dev-modal-overlay.open{display:flex;}
+.dev-modal{background:var(--dark4);border:1px solid rgba(205,165,74,.25);border-radius:26px;padding:32px 28px;max-width:400px;width:100%;text-align:center;position:relative;box-shadow:0 0 0 1px rgba(205,165,74,.08),0 24px 60px rgba(0,0,0,.5);}
+.dev-modal::before{content:'';position:absolute;inset:0;border-radius:26px;padding:1px;background:linear-gradient(135deg,rgba(205,165,74,.5),transparent 30%,transparent 70%,rgba(205,165,74,.5));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
+.dev-modal-close{position:absolute;top:14px;left:14px;background:none;border:none;color:var(--text-dim);font-size:22px;cursor:pointer;line-height:1;z-index:1;}
+.dev-modal-logo{display:flex;justify-content:center;margin-bottom:18px;}
+.dev-modal-logo img{height:34px;width:auto;}
+.dev-modal h3{font-size:17px;font-weight:800;margin-bottom:6px;}
+.dev-modal p{font-size:12.5px;color:var(--text-muted);margin-bottom:24px;}
+.dev-contact-row{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--dark2);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:13px 16px;margin-bottom:10px;transition:border-color .2s;}
+.dev-contact-row:hover{border-color:rgba(205,165,74,.3);}
+.dev-contact-info{text-align:right;}
+.dev-contact-label{display:block;font-size:11.5px;color:var(--text-dim);margin-bottom:3px;}
+.dev-contact-num{display:block;font-size:14px;font-weight:800;color:var(--white);direction:ltr;text-align:right;}
+.dev-contact-actions{display:flex;gap:8px;flex-shrink:0;}
+.dev-action-btn{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+.dev-action-btn:hover{transform:scale(1.1);}
+.dev-action-call{background:var(--gold);}
+.dev-action-wa{background:#25d366;}
 @keyframes creditShimmerText{0%{background-position:0% center;}100%{background-position:200% center;}}
 @keyframes creditShimmerBg{0%{background-position:0% center;}100%{background-position:200% center;}}
 @keyframes creditSpin{0%,85%,100%{transform:rotate(0deg);}90%{transform:rotate(180deg);}95%{transform:rotate(360deg);}}
@@ -290,13 +300,7 @@ footer{background:#050a10;border-top:1px solid rgba(255,255,255,.05);padding:40p
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="logo-wrap" style="display:flex;align-items:center;gap:12px;">
-      <a href="/"><img loading="lazy" src="logo.svg" alt="شركة الموارد البشرية"></a>
-      <a href="https://wa.me/201213816311" target="_blank" rel="noopener" class="header-dev-badge" aria-label="تصميم Click Zodiak">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-        <span class="header-dev-badge-text">Click Zodiak</span>
-      </a>
-    </div>
+    <div class="logo-wrap"><a href="/"><img loading="lazy" src="logo.svg" alt="شركة الموارد البشرية"></a></div>
     <nav>
       <a href="/about">من نحن</a>
       <a href="/services">الخدمات</a>
@@ -584,13 +588,56 @@ footer{background:#050a10;border-top:1px solid rgba(255,255,255,.05);padding:40p
       <span><a href="/terms" style="color:var(--text-dim);text-decoration:none;">الشروط والأحكام</a> | <a href="/privacy" style="color:var(--text-dim);text-decoration:none;">سياسة الخصوصية</a> | <a href="/refund" style="color:var(--text-dim);text-decoration:none;">الإلغاء والاسترجاع</a></span>
     </div>
     <div class="credit-line">
-      <span class="credit-badge">
+      <button type="button" class="credit-badge" onclick="openDevModal()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
-        تم تنفيذ الموقع بواسطة شـركة<a href="https://wa.me/201213816311" target="_blank" rel="noopener">Click Zodiak</a>
-      </span>
+        تم تنفيذ الموقع بواسطة شـركة<span class="credit-badge-name">Click Zodiak</span>
+      </button>
     </div>
   </div>
 </footer>
+
+<!-- DEV MODAL -->
+<div class="dev-modal-overlay" id="devModalOverlay">
+  <div class="dev-modal">
+    <button class="dev-modal-close" onclick="closeDevModal()">&times;</button>
+    <div class="dev-modal-logo"><img loading="lazy" src="images/click-zodiak-logo.svg" alt="Click Zodiak"></div>
+    <h3>صُنع هذا الموقع بواسطة</h3>
+    <p>تصميم مواقع احترافية وإدارة إعلانات جوجل</p>
+
+    <div class="dev-contact-row">
+      <div class="dev-contact-info">
+        <span class="dev-contact-label">تصميم مواقع وإعلانات جوجل</span>
+        <span class="dev-contact-num">01020469106+</span>
+      </div>
+      <div class="dev-contact-actions">
+        <a href="tel:+201020469106" class="dev-action-btn dev-action-call" aria-label="اتصال"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .9h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
+        <a href="https://wa.me/201020469106" target="_blank" class="dev-action-btn dev-action-wa" aria-label="واتساب"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="dev-contact-row">
+      <div class="dev-contact-info">
+        <span class="dev-contact-label">تصميم مواقع وإعلانات جوجل</span>
+        <span class="dev-contact-num">01213816311+</span>
+      </div>
+      <div class="dev-contact-actions">
+        <a href="tel:+201213816311" class="dev-action-btn dev-action-call" aria-label="اتصال"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .9h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
+        <a href="https://wa.me/201213816311" target="_blank" class="dev-action-btn dev-action-wa" aria-label="واتساب"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="dev-contact-row">
+      <div class="dev-contact-info">
+        <span class="dev-contact-label">للاستفسارات العامة</span>
+        <span class="dev-contact-num">01023444798+</span>
+      </div>
+      <div class="dev-contact-actions">
+        <a href="tel:+201023444798" class="dev-action-btn dev-action-call" aria-label="اتصال"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .9h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></a>
+        <a href="https://wa.me/201023444798" target="_blank" class="dev-action-btn dev-action-wa" aria-label="واتساب"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 function toggleMenu(){document.getElementById('mobileNav').classList.toggle('open');}
@@ -599,6 +646,11 @@ function openWaModal(){document.getElementById('waModalOverlay').classList.add('
 function closeWaModal(){document.getElementById('waModalOverlay').classList.remove('open');}
 document.getElementById('waModalOverlay').addEventListener('click', function(e){
   if(e.target === this) closeWaModal();
+});
+function openDevModal(){document.getElementById('devModalOverlay').classList.add('open');}
+function closeDevModal(){document.getElementById('devModalOverlay').classList.remove('open');}
+document.getElementById('devModalOverlay').addEventListener('click', function(e){
+  if(e.target === this) closeDevModal();
 });
 
 const observer = new IntersectionObserver(entries=>{
